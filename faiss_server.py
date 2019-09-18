@@ -137,10 +137,10 @@ class FaissServer(pb2_grpc.ServerServicer):
         _, ids_path = self.down_if_remote_path(request.ids_path)
         df = pd.read_csv(embs_path, delimiter="\t", header=None)
         X = df.values
-        logging.debug("%s", X)
+        # logging.debug("X = %s", X)
         df = pd.read_csv(ids_path, header=None)
         ids = df[0].values
-        logging.debug("%s", ids)
+        logging.debug("ids = %s", ids)
 
         X = np.ascontiguousarray(X, dtype=np.float32)
         ids = np.ascontiguousarray(ids, dtype=np.int64)
