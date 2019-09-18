@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package faiss_index;
+
+// Service Definition
+service Server {
+    rpc Add (AddRequest) returns (SimpleResponse) {}
+    rpc Remove (IdRequest) returns (SimpleResponse) {}
+    rpc Search (SearchRequest) returns (SearchResponse) {}
+    rpc SearchByEmbedding (SearchByEmbeddingRequest) returns (SearchResponse) {}
+    rpc Restore (RestoreRequest) returns (SimpleResponse) {}
+    rpc Import (ImportRequest) returns (SimpleResponse) {}
+    rpc Total (EmptyRequest) returns (TotalResponse) {}
+}
+
+// Message Definition
+message AddRequest {
+    int64 id = 1;
+    repeated float embedding = 2;
+}
+
+message IdRequest {
+    int64 id = 1;
+}
+
+message SearchRequest {
+    int64 id = 1;
+    int32 count = 2;
+    string key = 3;
+}
+
+message SearchByEmbeddingRequest {
+    repeated float embedding = 1;
+    int32 count = 2;
+}
+
+message RestoreRequest {
+    string save_path = 1;
+}
+
+message ImportRequest {
+    string embs_path = 1;
+    string ids_path = 2;
+}
+
+message EmptyRequest {
+}
+
+message SimpleResponse {
+    string message = 1;
+}
+
+message SearchResponse {
+    repeated int64 ids = 1;
+    repeated float scores = 2;
+    repeated string keys = 3;
+}
+
+message TotalResponse {
+    int64 count = 1;
+}
+

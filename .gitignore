@@ -1,0 +1,49 @@
+
+# Gradle
+build
+dist
+.gradle
+
+# Maven
+target
+release.properties
+pom.xml.*
+
+# IntelliJ
+.idea/
+*.iml
+
+# VSCode
+.vscode
+
+# Eclipse
+.classpath
+.project
+.settings
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+# Egg
+*.egg-info
+
+# Virtualenv
+.venv
+
+# Java
+*.class
+
+# C extensions
+*.so
+
+# Etc
+*.DS_Store
+*.swp
+*.swo
+*.log
+*.out
+log
+data
+
