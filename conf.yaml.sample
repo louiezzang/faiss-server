@@ -1,0 +1,4 @@
+azure-blobs:
+  storage-account: YOUR_ACCOUNT
+  account-key: YOUR_ACCOUNT_KEY
+  container: YOUR_CONTAINER_NAME

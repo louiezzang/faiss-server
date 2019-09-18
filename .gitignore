@@ -46,4 +46,6 @@ __pycache__/
 *.out
 log
 data
+*.ini
+conf.yaml
 
