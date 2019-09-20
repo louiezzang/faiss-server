@@ -28,7 +28,10 @@ $ ./run cia/faiss-server:latest faiss-server
 
 
 
-## Enter the docker container with shell command.
+## Enter the docker container with shell command and test.
 ```
-docker exec -it faiss-server /bin/bash
+$ docker exec -it faiss-server /bin/bash
+```
+```
+$ python client_sample.py test --dim 200 --host localhost --port 50051
 ```
