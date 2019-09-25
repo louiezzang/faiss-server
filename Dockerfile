@@ -13,6 +13,9 @@ RUN pip install azure-storage-blob
 
 # Set the working directory to /app
 RUN mkdir -p /app
+RUN mkdir -p /app/data
+RUN mkdir -p /app/data/index
+RUN mkdir -p /app/log
 ADD . /app/
 WORKDIR /app
 

@@ -45,7 +45,8 @@ __pycache__/
 *.log
 *.out
 log
-data
+#data
 *.ini
 conf.yaml
+faiss-server.yaml
 

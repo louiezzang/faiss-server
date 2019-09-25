@@ -10,20 +10,20 @@ $ docker build -t [YOUR DOCKER IMAGE NAME] .
 ```
 or 
 ```
-$ ./build [YOUR DOCKER IMAGE NAME]
+$ ./build.sh [YOUR DOCKER IMAGE NAME]
 ```
 eg.
 ```
-$ ./build cia/faiss-server
+$ ./build.sh cia/faiss-server
 ```
 
 ## Run the faiss server
 ```
-$ ./run [YOUR DOCKER IMAGE] [YOUR DOCKER CONTAINER NAME]
+$ ./run.sh [YOUR DOCKER IMAGE] [YOUR DOCKER CONTAINER NAME]
 ```
 eg. 
 ```
-$ ./run cia/faiss-server:latest faiss-server
+$ ./run.sh cia/faiss-server:latest faiss-server
 ```
 
 
@@ -34,4 +34,9 @@ $ docker exec -it faiss-server /bin/bash
 ```
 ```
 $ python client_sample.py test --dim 200 --host localhost --port 50051
+```
+
+```
+$ python client_sample.py import data/embeds.csv data/ids.csv data/keys.csv --host localhost:50051
+$ python client_sample.py search-by-key a2 --host localhost:50051 --count 2
 ```

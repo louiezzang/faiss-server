@@ -76,8 +76,9 @@ def test(host, port, dim):
 @click.command('import')
 @click.argument('embs-path')
 @click.argument('ids-path')
+@click.argument('keys_path')
 @click.option('-h', '--host', default='localhost:50051', help='server host:port')
-def imports(host, embs_path, ids_path):
+def imports(host, embs_path, ids_path, keys_path):
     print("host: %s" % host)
     channel = grpc.insecure_channel(host)
     stub = pb2_grpc.ServerStub(channel)
@@ -85,7 +86,7 @@ def imports(host, embs_path, ids_path):
     response = stub.Total(pb2.EmptyRequest())
     print("total: %d" % response.count)
 
-    response = stub.Import(pb2.ImportRequest(embs_path=embs_path, ids_path=ids_path))
+    response = stub.Import(pb2.ImportRequest(embs_path=embs_path, ids_path=ids_path, keys_path=keys_path))
     print("response: %s" % response.message)
 
     response = stub.Total(pb2.EmptyRequest())
