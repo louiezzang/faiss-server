@@ -35,7 +35,7 @@ def main(args):
     root.setLevel(level)
     root.addHandler(handler)
 
-    logging.info("erver loading...")
+    logging.info("server loading...")
     logging.info("max workers: %d", max_workers)
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=max_workers))
     servicer = FaissServer(dim, save_path, keys_path, nprobe)
