@@ -19,11 +19,11 @@ $ ./build.sh cia/faiss-server
 
 ## Run the faiss server
 ```
-$ ./run.sh [YOUR DOCKER IMAGE] [YOUR DOCKER CONTAINER NAME]
+$ ./run.sh [YOUR DOCKER IMAGE] [YOUR DOCKER CONTAINER NAME] [DIM]
 ```
 eg. 
 ```
-$ ./run.sh cia/faiss-server:latest faiss-server
+$ ./run.sh cia/faiss-server:latest faiss-server 608
 ```
 
 
