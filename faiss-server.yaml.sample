@@ -22,3 +22,5 @@ spec:
               args: ["--dim", "200", "--log", "/app/log/faiss.log", "--save_path", "/app/data/index", "--nprobe", "1"]
           ports:
             - containerPort: 50051
+      imagePullSecrets:
+        - name: acr-auth
