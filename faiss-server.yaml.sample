@@ -18,8 +18,8 @@ spec:
         - name: faiss-server
           image: YOUR_CONTAINER_REGISTRY/faiss-server:v1
           imagePullPolicy: Always
-          command: ["server.py"]
-              args: ["--dim", "200", "--log", "/app/log/faiss.log", "--save_path", "/app/data/index", "--nprobe", "1"]
+          command: ["python", "server.py"]
+          args: ["--dim", "709"]
           ports:
             - containerPort: 50051
       imagePullSecrets:
