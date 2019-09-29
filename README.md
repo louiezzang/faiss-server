@@ -42,5 +42,5 @@ $ python client_sample.py search-by-key a2 --host localhost:50051 --count 2
 ```
 
 ```
-$ python client_sample.py import blobs://recommendation/item_embeddings/all/embeds.csv blobs://recommendation/item_embeddings/all/ids.csv blobs://recommendation/item_embeddings/all/keys.csv --host 40.65.186.191:50051
+$ python client_sample.py import blobs://recommendation/item_embeddings/all/embeds.csv blobs://recommendation/item_embeddings/all/ids.csv blobs://recommendation/item_embeddings/all/keys.csv --host localhost:50051
 ```
