@@ -135,10 +135,16 @@ class FaissServer(pb2_grpc.ServerServicer):
         return pb2.SimpleResponse(message="Restored, %s!" % request.save_path)
 
     def Import(self, request, context):
-        logging.debug("importing - %s, %s, %s", request.embs_path, request.ids_path, request.keys_path)
+        logging.debug("importing - %s, %s, %s, dim=%d", request.embs_path, request.ids_path, request.keys_path)
+        dim = None
+        if request.dim:
+            dim = request.dim
+            logging.debug("dim=%d", request.dim)
+
         _, embs_path = self.down_if_remote_path(request.embs_path)
         _, ids_path = self.down_if_remote_path(request.ids_path)
         _, keys_path = self.down_if_remote_path(request.keys_path)
+
         df = pd.read_csv(embs_path, delimiter="\t", header=None)
         X = df.values
         # logging.debug("X = %s", X)
@@ -149,8 +155,17 @@ class FaissServer(pb2_grpc.ServerServicer):
         X = np.ascontiguousarray(X, dtype=np.float32)
         ids = np.ascontiguousarray(ids, dtype=np.int64)
 
-        self._index.replace(X, ids)
+        """
+        ----------------------------------------------
+        Initialize FaissIndex with new dimension
+        ----------------------------------------------
+        """
+        if dim > 0:
+            self._index = FaissIndex(dim=100, save_path=None)
 
+        # Import new index
+        self._index.replace(X, ids)
+        # Load keys
         self._keys, self._key_index = self._load_keys(keys_path)
 
         return pb2.SimpleResponse(message="Imported, %s, %s, %s!" % (request.embs_path, request.ids_path, request.keys_path))

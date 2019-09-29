@@ -23,7 +23,7 @@ $ ./run.sh [YOUR DOCKER IMAGE] [YOUR DOCKER CONTAINER NAME] [DIM]
 ```
 eg. 
 ```
-$ ./run.sh cia/faiss-server:latest faiss-server 608
+$ ./run.sh cia/faiss-server:latest faiss-server 200
 ```
 
 
