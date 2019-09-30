@@ -6,20 +6,20 @@ $ python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. faiss.proto
 
 ## Build docker image
 ```
-$ docker build -t [YOUR DOCKER IMAGE NAME] .
+$ docker build -t [YOUR_DOCKER_IMAGE_NAME or YOUR_DOCKER_IMAGE_NAME:VERSION] .
 ```
 or 
 ```
-$ ./build.sh [YOUR DOCKER IMAGE NAME]
+$ ./build.sh [YOUR_DOCKER_IMAGE_NAME or YOUR_DOCKER_IMAGE_NAME:VERSION]
 ```
 eg.
 ```
-$ ./build.sh cia/faiss-server
+$ ./build.sh cia/faiss-server:1.0.0
 ```
 
 ## Run the faiss server
 ```
-$ ./run.sh [YOUR DOCKER IMAGE] [YOUR DOCKER CONTAINER NAME] [DIM]
+$ ./run.sh [YOUR_DOCKER_IMAGE_NAME or YOUR_DOCKER_IMAGE_NAME:VERSION] [YOUR_DOCKER_CONTAINER_NAME] [DIM]
 ```
 eg. 
 ```

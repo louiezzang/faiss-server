@@ -10,6 +10,7 @@ spec:
     - port: 50051
       protocol: TCP
       name: grpc-faiss
+      targetPort: 50051
   selector:
     app: faiss-server
 ---
