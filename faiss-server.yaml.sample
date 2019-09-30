@@ -1,7 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: faiss-server
+  labels:
+    app: faiss-server
+spec:
+  type: LoadBalancer # NodePort
+  ports:
+    - port: 50051
+      protocol: TCP
+      name: grpc-faiss
+  selector:
+    app: faiss-server
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: faiss-server-deployment
+  name: faiss-server
   labels:
     app: faiss-server
 spec:
@@ -16,10 +31,12 @@ spec:
     spec:
       containers:
         - name: faiss-server
-          image: YOUR_CONTAINER_REGISTRY/faiss-server:v1
+          image: YOUR_CONTAINER_REGISTRIES/faiss-server:1.0.0
           imagePullPolicy: Always
           command: ["python", "server.py"]
-          args: ["--dim", "709"]
+          args: [
+            "--dim", "709"
+          ]
           ports:
             - containerPort: 50051
       imagePullSecrets:
