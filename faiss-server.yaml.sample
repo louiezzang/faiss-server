@@ -5,12 +5,13 @@ metadata:
   labels:
     app: faiss-server
 spec:
-  type: LoadBalancer # NodePort
+  type: ClusterIP
+  clusterIP: 10.0.186.92
   ports:
-    - port: 50051
-      protocol: TCP
-      name: grpc-faiss
+    - name: grpc-faiss
+      port: 50051
       targetPort: 50051
+      protocol: TCP
   selector:
     app: faiss-server
 ---
@@ -21,7 +22,7 @@ metadata:
   labels:
     app: faiss-server
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: faiss-server
