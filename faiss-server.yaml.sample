@@ -6,7 +6,7 @@ metadata:
     app: faiss-server
 spec:
   type: ClusterIP
-  clusterIP: 10.0.186.92
+  clusterIP: YOUR_CLUSTER_IP_ADDRESS
   ports:
     - name: grpc-faiss-prd-1
       port: 50051
@@ -26,7 +26,7 @@ metadata:
 spec:
   containers:
     - name: faiss-server-prd-1
-      image: mcciaregistry.azurecr.io/faiss-server:1.0.0
+      image: YOUR_CONTAINER_REGISTRIES/faiss-server:1.0.0
       imagePullPolicy: Always
       command: ["python", "server.py"]
       args: [
