@@ -6,13 +6,13 @@ metadata:
     app: faiss-server
 spec:
   type: ClusterIP
-  clusterIP: YOUR_CLUSTER_IP_ADDRESS
+  #clusterIP: YOUR_CLUSTER_IP_ADDRESS
   ports:
-    - name: grpc-faiss-prd-1
+    - name: grpc-faiss-dev-1
       port: 50051
       targetPort: 50051
       protocol: TCP
-    - name: grpc-faiss-prd-2
+    - name: grpc-faiss-dev-2
       port: 50052
       targetPort: 50052
       protocol: TCP
@@ -25,21 +25,21 @@ metadata:
     app: faiss-server
 spec:
   containers:
-    - name: faiss-server-prd-1
+    - name: faiss-server-dev-1
       image: YOUR_CONTAINER_REGISTRIES/faiss-server:1.0.0
       imagePullPolicy: Always
       command: ["python", "server.py"]
       args: [
-        "--dim", "709"
+        "--dim", "315"
       ]
       ports:
         - containerPort: 50051
-    - name: faiss-server-prd-2
+    - name: faiss-server-dev-2
       image: YOUR_CONTAINER_REGISTRIES/faiss-server:1.0.0
       imagePullPolicy: Always
       command: ["python", "server.py"]
       args: [
-        "--dim", "709"
+        "--dim", "315"
       ]
       ports:
         - containerPort: 50052
