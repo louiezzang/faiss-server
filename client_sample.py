@@ -6,11 +6,6 @@ import faiss_pb2 as pb2
 import faiss_pb2_grpc as pb2_grpc
 
 
-HOST = "localhost"
-PORT = 50051
-DIM = 200
-
-
 @click.group()
 def cli():
     pass
@@ -29,7 +24,8 @@ def test(host, port, dim):
     response = stub.Total(pb2.EmptyRequest())
     print("total: %d" % response.count)
 
-    embedding = list(np.random.random(DIM).astype('float32'))
+    embedding = list(np.random.random(dim).astype('float32'))
+    print(embedding)
     id = 1
     response = stub.Add(pb2.AddRequest(id=id, embedding=embedding))
     print("response: %s" % response.message)
