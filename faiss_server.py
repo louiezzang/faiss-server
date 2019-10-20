@@ -23,7 +23,7 @@ class FaissServer(pb2_grpc.ServerServicer):
         logging.debug("nprobe: %d", nprobe)
 
         stream = open("conf.yaml", 'r')
-        self._conf = yaml.load(stream)
+        self._conf = yaml.load(stream, Loader=yaml.FullLoader)
         print(self._conf)
 
         remote_path, save_path = self.down_if_remote_path(save_path)

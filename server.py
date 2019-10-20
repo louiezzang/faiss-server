@@ -1,5 +1,6 @@
 import time
 import logging
+import os
 import sys
 import signal
 import argparse
@@ -12,6 +13,10 @@ from faiss_server import FaissServer
 
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
+
+
+if not os.path.exists(os.getcwd() + "/logs"):
+    os.makedirs(os.getcwd() + "/logs")
 
 
 def main(args):

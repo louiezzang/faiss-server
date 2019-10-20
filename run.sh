@@ -18,9 +18,6 @@ echo "nprobe: $NPROBE"
 
 ROOT="$(pwd)/$(dirname "$0")"
 
-mkdir -p "${ROOT}/logs"
-mkdir -p "${ROOT}/data"
-
 docker run -d --name $CONTAINER_NAME -it \
          -p $PORT:50051 \
          -v $(pwd):/app \
