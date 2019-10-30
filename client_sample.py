@@ -69,6 +69,61 @@ def test(host, port, dim):
     print("total: %d" % response.count)
 
 
+@click.command("test_key")
+@click.option('--dim', type=int, help='dimension')
+@click.option('--host', default='localhost', help='server host')
+@click.option('--port', default=50051, help='server port')
+def test_key(host, port, dim):
+    print("host: %s:%d" % (host, port))
+
+    channel = grpc.insecure_channel("%s:%d" % (host, port))
+    stub = pb2_grpc.ServerStub(channel)
+
+    response = stub.Total(pb2.EmptyRequest())
+    print("total: %d" % response.count)
+
+    embedding = list(np.random.random(dim).astype('float32'))
+    print(embedding)
+    key = "k1"
+    response = stub.Add(pb2.AddRequest(key=key, embedding=embedding))
+    print("response: %s" % response.message)
+
+    embedding = list(np.random.random(dim).astype('float32'))
+    key = "k1"
+    response = stub.Add(pb2.AddRequest(key=key, embedding=embedding))
+    print("response: %s" % response.message)
+
+    embedding = list(np.random.random(dim).astype('float32'))
+    key = "k2"
+    response = stub.Add(pb2.AddRequest(key=key, embedding=embedding))
+    print("response: %s" % response.message)
+
+    embedding = list(np.random.random(dim).astype('float32'))
+    key = "k3"
+    response = stub.Add(pb2.AddRequest(key=key, embedding=embedding))
+    print("response: %s" % response.message)
+
+    response = stub.Total(pb2.EmptyRequest())
+    print("total: %d" % response.count)
+
+    key = "k2"
+    response = stub.Search(pb2.SearchRequest(key=key, count=5))
+    print("response: %s, %s" % (response.ids, response.scores))
+
+    response = stub.Remove(pb2.IdRequest(id=2))
+    print("response: %s" % response.message)
+
+    response = stub.Total(pb2.EmptyRequest())
+    print("total: %d" % response.count)
+
+    key = "k2"
+    response = stub.Search(pb2.SearchRequest(key=key, count=5))
+    print("response: %s, %s" % (response.ids, response.scores))
+
+    response = stub.Total(pb2.EmptyRequest())
+    print("total: %d" % response.count)
+
+
 @click.command('import')
 @click.argument('embs-path')
 @click.argument('ids-path')
@@ -147,6 +202,7 @@ def test_search_perform(host, keys_path, count, timeout):
 
 if __name__ == '__main__':
     cli.add_command(test)
+    cli.add_command(test_key)
     cli.add_command(imports)
     cli.add_command(search)
     cli.add_command(search_by_key)

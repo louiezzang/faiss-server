@@ -17,6 +17,7 @@ service Server {
 message AddRequest {
     int64 id = 1;
     repeated float embedding = 2;
+    string key = 3;
 }
 
 message IdRequest {

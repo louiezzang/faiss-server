@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='faiss_index',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0b\x66\x61iss.proto\x12\x0b\x66\x61iss_index\"+\n\nAddRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x11\n\tembedding\x18\x02 \x03(\x02\"\x17\n\tIdRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"7\n\rSearchRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\x12\x0b\n\x03key\x18\x03 \x01(\t\"<\n\x18SearchByEmbeddingRequest\x12\x11\n\tembedding\x18\x01 \x03(\x02\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\"#\n\x0eRestoreRequest\x12\x11\n\tsave_path\x18\x01 \x01(\t\"G\n\rImportRequest\x12\x11\n\tembs_path\x18\x01 \x01(\t\x12\x10\n\x08ids_path\x18\x02 \x01(\t\x12\x11\n\tkeys_path\x18\x03 \x01(\t\"\x0e\n\x0c\x45mptyRequest\"!\n\x0eSimpleResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\";\n\x0eSearchResponse\x12\x0b\n\x03ids\x18\x01 \x03(\x03\x12\x0e\n\x06scores\x18\x02 \x03(\x02\x12\x0c\n\x04keys\x18\x03 \x03(\t\"\x1e\n\rTotalResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x32\xf6\x03\n\x06Server\x12=\n\x03\x41\x64\x64\x12\x17.faiss_index.AddRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12?\n\x06Remove\x12\x16.faiss_index.IdRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12\x43\n\x06Search\x12\x1a.faiss_index.SearchRequest\x1a\x1b.faiss_index.SearchResponse\"\x00\x12Y\n\x11SearchByEmbedding\x12%.faiss_index.SearchByEmbeddingRequest\x1a\x1b.faiss_index.SearchResponse\"\x00\x12\x45\n\x07Restore\x12\x1b.faiss_index.RestoreRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12\x43\n\x06Import\x12\x1a.faiss_index.ImportRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12@\n\x05Total\x12\x19.faiss_index.EmptyRequest\x1a\x1a.faiss_index.TotalResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0b\x66\x61iss.proto\x12\x0b\x66\x61iss_index\"8\n\nAddRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x11\n\tembedding\x18\x02 \x03(\x02\x12\x0b\n\x03key\x18\x03 \x01(\t\"\x17\n\tIdRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"7\n\rSearchRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\x12\x0b\n\x03key\x18\x03 \x01(\t\"<\n\x18SearchByEmbeddingRequest\x12\x11\n\tembedding\x18\x01 \x03(\x02\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\"#\n\x0eRestoreRequest\x12\x11\n\tsave_path\x18\x01 \x01(\t\"G\n\rImportRequest\x12\x11\n\tembs_path\x18\x01 \x01(\t\x12\x10\n\x08ids_path\x18\x02 \x01(\t\x12\x11\n\tkeys_path\x18\x03 \x01(\t\"\x0e\n\x0c\x45mptyRequest\"!\n\x0eSimpleResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\";\n\x0eSearchResponse\x12\x0b\n\x03ids\x18\x01 \x03(\x03\x12\x0e\n\x06scores\x18\x02 \x03(\x02\x12\x0c\n\x04keys\x18\x03 \x03(\t\"\x1e\n\rTotalResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x32\xf6\x03\n\x06Server\x12=\n\x03\x41\x64\x64\x12\x17.faiss_index.AddRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12?\n\x06Remove\x12\x16.faiss_index.IdRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12\x43\n\x06Search\x12\x1a.faiss_index.SearchRequest\x1a\x1b.faiss_index.SearchResponse\"\x00\x12Y\n\x11SearchByEmbedding\x12%.faiss_index.SearchByEmbeddingRequest\x1a\x1b.faiss_index.SearchResponse\"\x00\x12\x45\n\x07Restore\x12\x1b.faiss_index.RestoreRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12\x43\n\x06Import\x12\x1a.faiss_index.ImportRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12@\n\x05Total\x12\x19.faiss_index.EmptyRequest\x1a\x1a.faiss_index.TotalResponse\"\x00\x62\x06proto3')
 )
 
 
@@ -46,6 +46,13 @@ _ADDREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='key', full_name='faiss_index.AddRequest.key', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -59,7 +66,7 @@ _ADDREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=28,
-  serialized_end=71,
+  serialized_end=84,
 )
 
 
@@ -89,8 +96,8 @@ _IDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=73,
-  serialized_end=96,
+  serialized_start=86,
+  serialized_end=109,
 )
 
 
@@ -134,8 +141,8 @@ _SEARCHREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=98,
-  serialized_end=153,
+  serialized_start=111,
+  serialized_end=166,
 )
 
 
@@ -172,8 +179,8 @@ _SEARCHBYEMBEDDINGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=155,
-  serialized_end=215,
+  serialized_start=168,
+  serialized_end=228,
 )
 
 
@@ -203,8 +210,8 @@ _RESTOREREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=217,
-  serialized_end=252,
+  serialized_start=230,
+  serialized_end=265,
 )
 
 
@@ -248,8 +255,8 @@ _IMPORTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=254,
-  serialized_end=325,
+  serialized_start=267,
+  serialized_end=338,
 )
 
 
@@ -272,8 +279,8 @@ _EMPTYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=327,
-  serialized_end=341,
+  serialized_start=340,
+  serialized_end=354,
 )
 
 
@@ -303,8 +310,8 @@ _SIMPLERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=343,
-  serialized_end=376,
+  serialized_start=356,
+  serialized_end=389,
 )
 
 
@@ -348,8 +355,8 @@ _SEARCHRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=378,
-  serialized_end=437,
+  serialized_start=391,
+  serialized_end=450,
 )
 
 
@@ -379,8 +386,8 @@ _TOTALRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=439,
-  serialized_end=469,
+  serialized_start=452,
+  serialized_end=482,
 )
 
 DESCRIPTOR.message_types_by_name['AddRequest'] = _ADDREQUEST
@@ -473,8 +480,8 @@ _SERVER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=472,
-  serialized_end=974,
+  serialized_start=485,
+  serialized_end=987,
   methods=[
   _descriptor.MethodDescriptor(
     name='Add',

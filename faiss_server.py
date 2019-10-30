@@ -17,10 +17,10 @@ from azure.storage.blob import BlockBlobService
 
 class FaissServer(pb2_grpc.ServerServicer):
     def __init__(self, dim, save_path, keys_path, nprobe):
-        logging.debug("dim: %d", dim)
-        logging.debug("save_path: %s", save_path)
-        logging.debug("keys_path: %s", keys_path)
-        logging.debug("nprobe: %d", nprobe)
+        logging.info("dim: %d", dim)
+        logging.info("save_path: %s", save_path)
+        logging.info("keys_path: %s", keys_path)
+        logging.info("nprobe: %d", nprobe)
 
         stream = open("conf.yaml", 'r')
         self._conf = yaml.load(stream, Loader=yaml.FullLoader)
@@ -34,7 +34,7 @@ class FaissServer(pb2_grpc.ServerServicer):
         if nprobe > 1:
             self._index.set_nprobe(nprobe)
         self._keys, self._key_index = self._load_keys(keys_path)
-        logging.debug("ntotal: %d", self._index.ntotal())
+        logging.info("ntotal: %d", self._index.ntotal())
 
     def parse_remote_path(self, save_path):
         if save_path is None or (not save_path.startswith("s3://") and not save_path.startswith("blobs://")):
@@ -48,7 +48,7 @@ class FaissServer(pb2_grpc.ServerServicer):
         remote_path, local_path = self.parse_remote_path(save_path)
         if not remote_path:
             return None, local_path
-        print("remote_path=", remote_path)
+        logging.debug("remote_path=", remote_path)
         if remote_path.startswith("s3://"):
             s3 = boto3.resource("s3")
             tokens = remote_path.replace("s3://", "").split("/")
@@ -89,7 +89,26 @@ class FaissServer(pb2_grpc.ServerServicer):
         return pb2.TotalResponse(count=self._index.ntotal())
 
     def Add(self, request, context):
-        logging.debug("add - id: %d", request.id)
+        logging.debug("add - id: %d, %s", request.id, request.key)
+        if request.key:
+            if self._key_index is None or not self._key_index.contains(request.key):
+                if self._key_index is None:
+                    self._key_index = pd.Index([request.key])
+                else:
+                    self._key_index = self._key_index.append(pd.Index([request.key]))
+
+                request.id = self._key_index.get_loc(request.key)
+                if self._keys is None:
+                    self._keys = np.array([request.key])
+                else:
+                    self._keys = np.append(self._keys, [request.key])
+            else:
+                request.id = self._key_index.get_loc(request.key)
+
+        # For debugging
+        # if self._keys is not None and self._key_index is not None:
+        #     logging.debug("keys: keys=%s, keys_index=%s", self._keys, self._key_index)
+
         xb = np.expand_dims(np.array(request.embedding, dtype=np.float32), 0)
         ids = np.array([request.id], dtype=np.int64)
         self._index.replace(xb, ids)
@@ -106,7 +125,7 @@ class FaissServer(pb2_grpc.ServerServicer):
         return pb2.SimpleResponse(message="Removed, %s!" % request.id)
 
     def Search(self, request, context):
-        logging.debug("search - id: %d, %s", request.id, request.key)
+        # logging.debug("search - id: %d, %s", request.id, request.key)
         if request.key:
             if self._key_index is None or not self._key_index.contains(request.key):
                 return pb2.SearchResponse()
@@ -133,7 +152,7 @@ class FaissServer(pb2_grpc.ServerServicer):
         return pb2.SimpleResponse(message="Restored, %s!" % request.save_path)
 
     def Import(self, request, context):
-        logging.debug("importing - %s, %s, %s", request.embs_path, request.ids_path, request.keys_path)
+        logging.info("importing - %s, %s, %s", request.embs_path, request.ids_path, request.keys_path)
         _, embs_path = self.down_if_remote_path(request.embs_path)
         _, ids_path = self.down_if_remote_path(request.ids_path)
         _, keys_path = self.down_if_remote_path(request.keys_path)
@@ -142,7 +161,7 @@ class FaissServer(pb2_grpc.ServerServicer):
         # logging.debug("X = %s", X)
         df = pd.read_csv(ids_path, header=None)
         ids = df[0].values
-        logging.debug("ids = %s", ids)
+        logging.info("ids = %s", ids)
 
         X = np.ascontiguousarray(X, dtype=np.float32)
         ids = np.ascontiguousarray(ids, dtype=np.int64)
