@@ -106,15 +106,9 @@ def test_key(host, port, dim):
     response = stub.Total(pb2.EmptyRequest())
     print("total: %d" % response.count)
 
-    key = "k2"
+    key = "k1"
     response = stub.Search(pb2.SearchRequest(key=key, count=5))
     print("response: %s, %s" % (response.ids, response.scores))
-
-    response = stub.Remove(pb2.IdRequest(id=2))
-    print("response: %s" % response.message)
-
-    response = stub.Total(pb2.EmptyRequest())
-    print("total: %d" % response.count)
 
     key = "k2"
     response = stub.Search(pb2.SearchRequest(key=key, count=5))
