@@ -48,7 +48,7 @@ class FaissServer(pb2_grpc.ServerServicer):
         remote_path, local_path = self.parse_remote_path(save_path)
         if not remote_path:
             return None, local_path
-        logging.debug("remote_path=", remote_path)
+        logging.debug("remote_path=%s", remote_path)
         if remote_path.startswith("s3://"):
             s3 = boto3.resource("s3")
             tokens = remote_path.replace("s3://", "").split("/")
@@ -82,7 +82,8 @@ class FaissServer(pb2_grpc.ServerServicer):
         _, keys_path = self.down_if_remote_path(keys_path)
         keys = pd.read_csv(keys_path, header=None, squeeze=True, dtype=("str"))
         key_index = pd.Index(keys)
-        logging.debug("keys: keys=%s, keys_index=%s", keys.values[:10], key_index[:10])
+        logging.debug("keys: keys[size=%d]=%s, keys_index[size=%d]=%s",
+                      len(keys), keys.values[:10], len(key_index), key_index[:10])
         return keys.values, key_index
 
     def Total(self, request, context):
@@ -91,7 +92,8 @@ class FaissServer(pb2_grpc.ServerServicer):
     def Add(self, request, context):
         logging.debug("add - id: %d, %s", request.id, request.key)
         if request.key:
-            if self._key_index is None or not self._key_index.contains(request.key):
+            # if self._key_index is None or not self._key_index.contains(request.key):
+            if self._key_index is None or request.key not in self._key_index:
                 if self._key_index is None:
                     self._key_index = pd.Index([request.key])
                 else:
@@ -125,11 +127,13 @@ class FaissServer(pb2_grpc.ServerServicer):
         return pb2.SimpleResponse(message="Removed, %s!" % request.id)
 
     def Search(self, request, context):
-        # logging.debug("search - id: %d, %s", request.id, request.key)
         if request.key:
-            if self._key_index is None or not self._key_index.contains(request.key):
+            # if self._key_index is None or not self._key_index.contains(request.key):
+            if self._key_index is None or request.key not in self._key_index:
                 return pb2.SearchResponse()
             request.id = self._key_index.get_loc(request.key)
+        # logging.debug("search - id: %d, %s", request.id, request.key)
+
         D, I = self._index.search_by_id(request.id, request.count)
         K = None
         if request.key:
@@ -161,12 +165,13 @@ class FaissServer(pb2_grpc.ServerServicer):
         # logging.debug("X = %s", X)
         df = pd.read_csv(ids_path, header=None)
         ids = df[0].values
-        logging.info("ids = %s", ids)
+        logging.info("ids[size=%d] = %s", len(ids), ids)
 
         X = np.ascontiguousarray(X, dtype=np.float32)
         ids = np.ascontiguousarray(ids, dtype=np.int64)
 
-        self._index.replace(X, ids)
+        # self._index.replace(X, ids)
+        self._index.rebuild(X, ids)
 
         self._keys, self._key_index = self._load_keys(keys_path)
 

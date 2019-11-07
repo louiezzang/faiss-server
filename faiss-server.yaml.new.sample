@@ -12,10 +12,6 @@ spec:
       port: 50051
       targetPort: 50051
       protocol: TCP
-    - name: grpc-faiss-item-2
-      port: 50052
-      targetPort: 50052
-      protocol: TCP
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -44,14 +40,5 @@ spec:
           ]
           ports:
             - containerPort: 50051
-        - name: faiss-item-2
-          image: YOUR_CONTAINER_REGISTRIES/faiss-server:1.0.0
-          imagePullPolicy: Always
-          command: ["python", "server.py"]
-          args: [
-            "--dim", "528"
-          ]
-          ports:
-            - containerPort: 50052
       imagePullSecrets:
         - name: acr-auth
