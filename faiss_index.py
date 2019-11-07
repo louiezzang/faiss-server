@@ -41,9 +41,9 @@ class FaissIndex:
         """
         logging.debug("rebuild: %s", ids)
         # Reset the index
-        # self._index.reset()
-        self._sub_index = faiss.IndexFlat(self.dim)
-        self._index = faiss.IndexIDMap2(self._sub_index)
+        self._index.reset()
+        # self._sub_index = faiss.IndexFlat(self.dim)
+        # self._index = faiss.IndexIDMap2(self._sub_index)
         return self._index.add_with_ids(xb, ids)
 
     def add(self, xb, ids):
