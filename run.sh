@@ -8,12 +8,16 @@ SAVE_PATH="data/index/faiss_server.index"
 KEYS_PATH=""
 NO_SAVE="false"
 NPROBE=1
+MAX_WORKERS=10
+NUM_THREADS=10
 echo "container_name: $CONTAINER_NAME"
 echo "port: $PORT"
 echo "dim: $DIM"
 echo "save_path: $SAVE_PATH"
 echo "keys_path: $KEYS_PATH"
 echo "no_save: $NO_SAVE"
+echo "max_workers: $MAX_WORKERS"
+echo "num_threads: $NUM_THREADS"
 echo "nprobe: $NPROBE"
 
 ROOT="$(pwd)/$(dirname "$0")"
@@ -28,4 +32,6 @@ docker run -d --name $CONTAINER_NAME -it \
            --save_path $SAVE_PATH \
            --debug "true" \
            --no_save "$NO_SAVE" \
+           --max_workers "$MAX_WORKERS" \
+           --num_threads "$NUM_THREADS" \
            --nprobe $NPROBE

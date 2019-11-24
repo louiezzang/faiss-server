@@ -27,6 +27,7 @@ def main(args):
     debug = args.debug
     no_save = args.no_save
     max_workers = args.max_workers
+    num_threads = args.num_threads
     nprobe = args.nprobe
 
     if log:
@@ -41,7 +42,9 @@ def main(args):
     root.addHandler(handler)
 
     logging.info("server loading...")
-    logging.info("max workers: %d", max_workers)
+    logging.info("max_workers: %d", max_workers)
+    if num_threads is not None:
+        logging.info("num_threads: %d", num_threads)
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=max_workers))
     servicer = FaissServer(dim, save_path, keys_path, nprobe)
     pb2_grpc.add_ServerServicer_to_server(servicer, server)
@@ -102,7 +105,12 @@ if __name__ == "__main__":
         '--max_workers',
         type=int,
         default=1,
-        help='workers count')
+        help='grpc workers count')
+    parser.add_argument(
+        '--num_threads',
+        type=int,
+        default=None,
+        help='faiss index thread count(omp_set_num_threads)')
     parser.add_argument(
         '--nprobe',
         type=int,

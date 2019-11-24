@@ -1,3 +1,11 @@
+# Faiss gRPC Server
+## Faiss
+A library for efficient similarity search and clustering of dense vectors.
+
+https://github.com/facebookresearch/faiss
+https://github.com/facebookresearch/faiss/wiki/Threads-and-asynchronous-calls
+https://github.com/daangn/faiss-server
+
 
 ## Protocol buffer compile for gRPC
 ```

@@ -16,11 +16,13 @@ from azure.storage.blob import BlockBlobService
 
 
 class FaissServer(pb2_grpc.ServerServicer):
-    def __init__(self, dim, save_path, keys_path, nprobe):
+    def __init__(self, dim, save_path, keys_path, nprobe, num_threads=None):
         logging.info("dim: %d", dim)
         logging.info("save_path: %s", save_path)
         logging.info("keys_path: %s", keys_path)
         logging.info("nprobe: %d", nprobe)
+        if num_threads is not None:
+            logging.info("num_threads: %d", num_threads)
 
         stream = open("conf.yaml", 'r')
         self._conf = yaml.load(stream, Loader=yaml.FullLoader)
@@ -30,7 +32,7 @@ class FaissServer(pb2_grpc.ServerServicer):
 
         self._remote_path = remote_path
         self._save_path = save_path
-        self._index = FaissIndex(dim, save_path)
+        self._index = FaissIndex(dim, save_path, num_threads)
         if nprobe > 1:
             self._index.set_nprobe(nprobe)
         self._keys, self._key_index = self._load_keys(keys_path)

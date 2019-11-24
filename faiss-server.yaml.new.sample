@@ -36,7 +36,9 @@ spec:
           imagePullPolicy: Always
           command: ["python", "server.py"]
           args: [
-            "--dim", "528"
+            "--dim", "528",
+            #"--max_workers", "10",
+            #"--num_threads", "10"
           ]
           ports:
             - containerPort: 50051

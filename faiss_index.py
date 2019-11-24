@@ -6,13 +6,16 @@ import numpy as np
 
 
 class FaissIndex:
-    def __init__(self, dim, save_path):
+    def __init__(self, dim: int, save_path: str, num_threads: int = None):
         """
         Constructor.
         :param dim:
         :param save_path:
+        :param num_threads
         """
         self.dim = dim
+        if num_threads is not None and num_threads > 0:
+            faiss.omp_set_num_threads(num_threads)
         if isfile(save_path):
             logging.debug("restore: %s", save_path)
             self._index = faiss.read_index(save_path)
