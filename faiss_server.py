@@ -58,8 +58,8 @@ class FaissServer(pb2_grpc.ServerServicer):
             key = "/".join(tokens[1:])
             s3.Bucket(bucket_name).download_file(key, local_path)
         elif remote_path.startswith("blobs://"):
-            blob_service = BlockBlobService(account_name=self._conf["azure-blobs"]["storage-account"],
-                                            account_key=self._conf["azure-blobs"]["account-key"])
+            blob_service = BlockBlobService(account_name=self._conf["azure-blobs"]["storage.account"],
+                                            account_key=self._conf["azure-blobs"]["account.key"])
             container_name = self._conf["azure-blobs"]["container"]
             remote_path = remote_path.replace("blobs://", "")
             prefix = remote_path
