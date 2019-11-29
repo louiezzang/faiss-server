@@ -132,6 +132,7 @@ class FaissServer(pb2_grpc.ServerServicer):
         if request.key:
             # if self._key_index is None or not self._key_index.contains(request.key):
             if self._key_index is None or request.key not in self._key_index:
+                logging.debug("search - Key not found: %s", request.key)
                 return pb2.SearchResponse()
             request.id = self._key_index.get_loc(request.key)
         # logging.debug("search - id: %d, %s", request.id, request.key)
@@ -143,7 +144,7 @@ class FaissServer(pb2_grpc.ServerServicer):
         return pb2.SearchResponse(ids=I[0], scores=D[0], keys=K)
 
     def SearchByEmbedding(self, request, context):
-        logging.debug("search_by_emb - embedding: %s", request.embedding[:10])
+        # logging.debug("search_by_emb - embedding: %s", request.embedding[:10])
         emb = np.array(request.embedding, dtype=np.float32)
         emb = np.expand_dims(emb, axis=0)
         D, I = self._index.search(emb, request.count)
