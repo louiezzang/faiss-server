@@ -9,7 +9,7 @@ RUN pip install pyyaml
 RUN pip install click
 RUN pip install gevent==1.3.5
 RUN pip install boto3
-RUN pip install azure-storage-blob
+RUN pip install azure-storage-blob==2.1.0   # Latest version has a major change, some of class names are changed
 
 # Set the working directory to /app
 RUN mkdir -p /app
