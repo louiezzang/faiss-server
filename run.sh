@@ -22,6 +22,10 @@ echo "nprobe: $NPROBE"
 
 ROOT="$(pwd)/$(dirname "$0")"
 
+echo "Stop $CONTAINER_NAME..."
+./stop.sh "$CONTAINER_NAME"
+
+echo "Start $CONTAINER_NAME..."
 docker run -d --name $CONTAINER_NAME -it \
          -p $PORT:50051 \
          -v $(pwd):/app \
@@ -35,3 +39,5 @@ docker run -d --name $CONTAINER_NAME -it \
            --max_workers "$MAX_WORKERS" \
            --num_threads "$NUM_THREADS" \
            --nprobe $NPROBE
+
+echo "Started!"

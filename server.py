@@ -46,7 +46,8 @@ def main(args):
     if num_threads is not None:
         logging.info("num_threads: %d", num_threads)
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=max_workers))
-    servicer = FaissServer(dim, save_path, keys_path, nprobe)
+    #servicer = FaissServer(dim, save_path, keys_path, nprobe)
+    servicer = FaissServer(dim, save_path, keys_path, nprobe, num_threads)
     pb2_grpc.add_ServerServicer_to_server(servicer, server)
     server.add_insecure_port("[::]:50051")
     server.start()
