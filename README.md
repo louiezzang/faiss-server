@@ -31,7 +31,7 @@ $ ./run.sh [YOUR_DOCKER_IMAGE_NAME or YOUR_DOCKER_IMAGE_NAME:VERSION] [YOUR_DOCK
 ```
 eg. 
 ```
-$ ./run.sh cia/faiss-server:latest faiss-server 200 1 1
+$ ./run.sh cia/faiss-server:latest faiss-server 200 5 10
 ```
 
 

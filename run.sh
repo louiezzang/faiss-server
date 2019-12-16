@@ -14,11 +14,11 @@ NPROBE=1
 echo "container_name: $CONTAINER_NAME"
 echo "port: $PORT"
 echo "dim: $DIM"
+echo "max_workers: $MAX_WORKERS"
+echo "num_threads: $NUM_THREADS"
 echo "save_path: $SAVE_PATH"
 echo "keys_path: $KEYS_PATH"
 echo "no_save: $NO_SAVE"
-echo "max_workers: $MAX_WORKERS"
-echo "num_threads: $NUM_THREADS"
 echo "nprobe: $NPROBE"
 
 ROOT="$(pwd)/$(dirname "$0")"
