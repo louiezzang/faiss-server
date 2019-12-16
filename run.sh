@@ -2,14 +2,15 @@
 DOCKER_IMAGE=$1
 CONTAINER_NAME=$2
 DIM=$3
+MAX_WORKERS=$4
+NUM_THREADS=$5
 PORT=50051
 #DIM=200
 SAVE_PATH="data/index/faiss_server.index"
 KEYS_PATH=""
 NO_SAVE="false"
 NPROBE=1
-MAX_WORKERS=10
-NUM_THREADS=10
+
 echo "container_name: $CONTAINER_NAME"
 echo "port: $PORT"
 echo "dim: $DIM"
