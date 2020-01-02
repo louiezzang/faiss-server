@@ -154,7 +154,7 @@ class FaissServer(pb2_grpc.ServerServicer):
         if request.key:
             if self._key_index is None or request.key not in self._key_index:
                 logging.debug("getEmbedding - Key not found: %s", request.key)
-                return pb2.SearchResponse()
+                return pb2.EmbeddingResponse()
             request.id = self._key_index.get_loc(request.key)
 
         emb = self._index.reconstruct(request.id)
