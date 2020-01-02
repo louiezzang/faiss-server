@@ -64,7 +64,7 @@ def test(host, port, dim):
     print("response: %s, %s" % (response.ids, response.scores))
 
     # response = stub.Remove(pb2.IdRequest(id=1))
-    response = stub.Remove(pb2.IdRequest(id=3))
+    # response = stub.Remove(pb2.IdRequest(id=3))
 
     response = stub.Total(pb2.EmptyRequest())
     print("total: %d" % response.count)
@@ -174,7 +174,7 @@ def _search_by_key(host, key, count, timeout, channel):
 def get_embedding(host, id, timeout):
     with grpc.insecure_channel(host) as channel:
         stub = pb2_grpc.ServerStub(channel)
-        response = stub.GetEmbedding(pb2.SearchRequest(id=id), timeout=timeout)
+        response = stub.GetEmbedding(pb2.GetEmbeddingRequest(id=id), timeout=timeout)
         print("response: %s" % response.embedding)
 
 
@@ -186,10 +186,11 @@ def get_embedding(host, id, timeout):
 def search_by_embedding(host, id, count, timeout):
     with grpc.insecure_channel(host) as channel:
         stub = pb2_grpc.ServerStub(channel)
-        emb_response = stub.GetEmbedding(pb2.SearchRequest(id=id), timeout=timeout)
+        emb_response = stub.GetEmbedding(pb2.GetEmbeddingRequest(id=id), timeout=timeout)
         embedding = emb_response.embedding
+        # print(embedding)
         response = stub.SearchByEmbedding(pb2.SearchByEmbeddingRequest(embedding=embedding, count=count), timeout=timeout)
-    print("response: %s, %s" % (response.keys, response.scores))
+    print("response: %s, %s" % (response.ids, response.scores))
 
 
 @click.command()

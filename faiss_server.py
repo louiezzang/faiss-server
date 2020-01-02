@@ -139,7 +139,7 @@ class FaissServer(pb2_grpc.ServerServicer):
 
         D, I = self._index.search_by_id(request.id, request.count)
         K = None
-        if request.key:
+        if self._keys is not None:
             K = self._keys[I[0]]
         return pb2.SearchResponse(ids=I[0], scores=D[0], keys=K)
 
@@ -148,7 +148,10 @@ class FaissServer(pb2_grpc.ServerServicer):
         emb = np.array(request.embedding, dtype=np.float32)
         emb = np.expand_dims(emb, axis=0)
         D, I = self._index.search(emb, request.count)
-        return pb2.SearchResponse(ids=I[0], scores=D[0])
+        K = None
+        if self._keys is not None:
+            K = self._keys[I[0]]
+        return pb2.SearchResponse(ids=I[0], scores=D[0], keys=K)
 
     def GetEmbedding(self, request, context):
         if request.key:
@@ -156,6 +159,7 @@ class FaissServer(pb2_grpc.ServerServicer):
                 logging.debug("getEmbedding - Key not found: %s", request.key)
                 return pb2.EmbeddingResponse()
             request.id = self._key_index.get_loc(request.key)
+            # logging.debug("*** GetEmbedding: request.id = {} of request.key = {}".format(request.id, request.key))
 
         emb = self._index.reconstruct(request.id)
         if emb is not None:
