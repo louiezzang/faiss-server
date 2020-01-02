@@ -8,6 +8,7 @@ service Server {
     rpc Remove (IdRequest) returns (SimpleResponse) {}
     rpc Search (SearchRequest) returns (SearchResponse) {}
     rpc SearchByEmbedding (SearchByEmbeddingRequest) returns (SearchResponse) {}
+    rpc GetEmbedding (GetEmbeddingRequest) returns (EmbeddingResponse) {}
     rpc Restore (RestoreRequest) returns (SimpleResponse) {}
     rpc Import (ImportRequest) returns (SimpleResponse) {}
     rpc Total (EmptyRequest) returns (TotalResponse) {}
@@ -35,6 +36,11 @@ message SearchByEmbeddingRequest {
     int32 count = 2;
 }
 
+message GetEmbeddingRequest {
+    int64 id = 1;
+    string key = 2;
+}
+
 message RestoreRequest {
     string save_path = 1;
 }
@@ -56,6 +62,10 @@ message SearchResponse {
     repeated int64 ids = 1;
     repeated float scores = 2;
     repeated string keys = 3;
+}
+
+message EmbeddingResponse {
+    repeated float embedding = 1;
 }
 
 message TotalResponse {

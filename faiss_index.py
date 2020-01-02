@@ -84,6 +84,22 @@ class FaissIndex:
                 raise e
         return self.search(xq, k)
 
+    def reconstruct(self, id):
+        """
+        Returns the embedding vector by id.
+        :param id:
+        :return:
+        """
+        try:
+            x = self._index.reconstruct(id)
+            xq = np.expand_dims(x, axis=0)
+            return xq
+        except RuntimeError as e:
+            if str(e).endswith("not found"):
+                return None
+            else:
+                raise e
+
     def ntotal(self):
         """
         Returns the total number of rows.

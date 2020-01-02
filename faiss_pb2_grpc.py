@@ -34,6 +34,11 @@ class ServerStub(object):
         request_serializer=faiss__pb2.SearchByEmbeddingRequest.SerializeToString,
         response_deserializer=faiss__pb2.SearchResponse.FromString,
         )
+    self.GetEmbedding = channel.unary_unary(
+        '/faiss_index.Server/GetEmbedding',
+        request_serializer=faiss__pb2.GetEmbeddingRequest.SerializeToString,
+        response_deserializer=faiss__pb2.EmbeddingResponse.FromString,
+        )
     self.Restore = channel.unary_unary(
         '/faiss_index.Server/Restore',
         request_serializer=faiss__pb2.RestoreRequest.SerializeToString,
@@ -83,6 +88,13 @@ class ServerServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def GetEmbedding(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
   def Restore(self, request, context):
     # missing associated documentation comment in .proto file
     pass
@@ -126,6 +138,11 @@ def add_ServerServicer_to_server(servicer, server):
           servicer.SearchByEmbedding,
           request_deserializer=faiss__pb2.SearchByEmbeddingRequest.FromString,
           response_serializer=faiss__pb2.SearchResponse.SerializeToString,
+      ),
+      'GetEmbedding': grpc.unary_unary_rpc_method_handler(
+          servicer.GetEmbedding,
+          request_deserializer=faiss__pb2.GetEmbeddingRequest.FromString,
+          response_serializer=faiss__pb2.EmbeddingResponse.SerializeToString,
       ),
       'Restore': grpc.unary_unary_rpc_method_handler(
           servicer.Restore,

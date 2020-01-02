@@ -31,6 +31,7 @@ def test(host, port, dim):
     print("response: %s" % response.message)
 
     embedding = list(np.random.random(dim).astype('float32'))
+    print(embedding)
     id = 1
     response = stub.Add(pb2.AddRequest(id=id, embedding=embedding))
     print("response: %s" % response.message)
@@ -62,7 +63,7 @@ def test(host, port, dim):
     response = stub.Search(pb2.SearchRequest(id=id, count=5))
     print("response: %s, %s" % (response.ids, response.scores))
 
-    response = stub.Remove(pb2.IdRequest(id=1))
+    # response = stub.Remove(pb2.IdRequest(id=1))
     response = stub.Remove(pb2.IdRequest(id=3))
 
     response = stub.Total(pb2.EmptyRequest())
@@ -166,6 +167,30 @@ def _search_by_key(host, key, count, timeout, channel):
     stub = pb2_grpc.ServerStub(channel)
     return stub.Search(pb2.SearchRequest(key=key, count=count))
 
+@click.command()
+@click.argument('id', type=int)
+@click.option('-h', '--host', default='localhost:50051', help='server host:port')
+@click.option('-t', '--timeout', default=0.5, help='request timeout')
+def get_embedding(host, id, timeout):
+    with grpc.insecure_channel(host) as channel:
+        stub = pb2_grpc.ServerStub(channel)
+        response = stub.GetEmbedding(pb2.SearchRequest(id=id), timeout=timeout)
+        print("response: %s" % response.embedding)
+
+
+@click.command()
+@click.argument('id', type=int)
+@click.option('-h', '--host', default='localhost:50051', help='server host:port')
+@click.option('--count', default=10, help='server limit count')
+@click.option('-t', '--timeout', default=0.1, help='request timeout')
+def search_by_embedding(host, id, count, timeout):
+    with grpc.insecure_channel(host) as channel:
+        stub = pb2_grpc.ServerStub(channel)
+        emb_response = stub.GetEmbedding(pb2.SearchRequest(id=id), timeout=timeout)
+        embedding = emb_response.embedding
+        response = stub.SearchByEmbedding(pb2.SearchByEmbeddingRequest(embedding=embedding, count=count), timeout=timeout)
+    print("response: %s, %s" % (response.keys, response.scores))
+
 
 @click.command()
 @click.argument('keys-path', type=str)
@@ -200,6 +225,8 @@ if __name__ == '__main__':
     cli.add_command(imports)
     cli.add_command(search)
     cli.add_command(search_by_key)
+    cli.add_command(get_embedding)
+    cli.add_command(search_by_embedding)
     cli.add_command(test_search_perform)
     cli()
 

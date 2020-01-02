@@ -8,8 +8,13 @@ https://github.com/daangn/faiss-server
 
 
 ## Protocol buffer compile for gRPC
+Install gRPC tool first.
 ```
-$ python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. faiss.proto
+pip3 install grpcio==1.15.0 grpcio-tools==1.15.0
+```
+Compile Protocol buffer.
+```
+$ python3 -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. faiss.proto
 ```
 
 ## Build docker image
@@ -47,6 +52,8 @@ $ python client_sample.py test --dim 200 --host localhost --port 50051
 ```
 $ python client_sample.py import data/embeds.csv data/ids.csv data/keys.csv --host localhost:50051
 $ python client_sample.py search-by-key a2 --host localhost:50051 --count 2
+$ python client_sample.py get-embedding 1 --host localhost:50051
+$ python client_sample.py search-by-embedding 1 --host localhost:50051 --count 2
 ```
 
 ```

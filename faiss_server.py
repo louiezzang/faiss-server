@@ -150,6 +150,18 @@ class FaissServer(pb2_grpc.ServerServicer):
         D, I = self._index.search(emb, request.count)
         return pb2.SearchResponse(ids=I[0], scores=D[0])
 
+    def GetEmbedding(self, request, context):
+        if request.key:
+            if self._key_index is None or request.key not in self._key_index:
+                logging.debug("getEmbedding - Key not found: %s", request.key)
+                return pb2.SearchResponse()
+            request.id = self._key_index.get_loc(request.key)
+
+        emb = self._index.reconstruct(request.id)
+        if emb is not None:
+            emb = emb.flatten()
+        return pb2.EmbeddingResponse(embedding=emb)
+
     def Restore(self, request, context):
         logging.debug("restore - %s", request.save_path)
         remote_path, save_path = self.down_if_remote_path(request.save_path)
