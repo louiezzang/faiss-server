@@ -27,7 +27,7 @@ $ ./build.sh [YOUR_DOCKER_IMAGE_NAME or YOUR_DOCKER_IMAGE_NAME:VERSION]
 ```
 eg.
 ```
-$ ./build.sh cia/faiss-server:latest
+$ ./build.sh nextmining/faiss-server:latest
 ```
 
 ## Run the faiss server
@@ -36,7 +36,7 @@ $ ./run.sh [YOUR_DOCKER_IMAGE_NAME or YOUR_DOCKER_IMAGE_NAME:VERSION] [YOUR_DOCK
 ```
 eg. 
 ```
-$ ./run.sh cia/faiss-server:latest faiss-server 200 5 10
+$ ./run.sh nextmining/faiss-server:latest faiss-server 200 5 10
 ```
 
 
