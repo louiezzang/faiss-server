@@ -57,7 +57,7 @@ $ docker exec -it faiss-server /bin/bash
 ```
 $ python client_sample.py test --dim 200 --host localhost --port 50051
 ```
-
+Test client samples.
 ```
 $ python client_sample.py import data/embeds.csv data/ids.csv data/keys.csv --host localhost:50051
 $ python client_sample.py search-by-key a2 --host localhost:50051 --count 2
@@ -65,6 +65,12 @@ $ python client_sample.py get-embedding 1 --host localhost:50051
 $ python client_sample.py search-by-embedding 1 --host localhost:50051 --count 2
 ```
 
+Import index files from local to faiss.
+```
+$ python client_sample.py import ./data/embeds.csv ./data/ids.csv ./data/keys.csv --host localhost:50051
+```
+
+Import index files from Azure Blobs to faiss.
 ```
 $ python client_sample.py import blobs://recommendation/item_embeddings/all/embeds.csv blobs://recommendation/item_embeddings/all/ids.csv blobs://recommendation/item_embeddings/all/keys.csv --host localhost:50051
 ```
