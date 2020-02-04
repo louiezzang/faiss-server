@@ -1,3 +1,4 @@
+# For deploying to Kubernetes
 apiVersion: v1
 kind: Service
 metadata:
@@ -6,39 +7,41 @@ metadata:
   labels:
     app: faiss-server
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
-    - name: grpc-faiss-item-1
+    - name: grpc-faiss
       port: 50051
       targetPort: 50051
       protocol: TCP
 ---
 apiVersion: apps/v1
-kind: Deployment
+#kind: Deployment
+kind: StatefulSet    # https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
 metadata:
   name: faiss-server
   namespace: development
   labels:
     app: faiss-server
 spec:
+  serviceName: faiss-server
   replicas: 1
   selector:
     matchLabels:
-      app: recommendation-serving
+      app: faiss-server
   template:
     metadata:
       labels:
-        app: recommendation-serving
+        app: faiss-server
     spec:
       containers:
-        - name: faiss-item-1
+        - name: faiss-item
           image: YOUR_CONTAINER_REGISTRIES/faiss-server:1.0.0
           imagePullPolicy: Always
           command: ["python", "server.py"]
           args: [
             "--dim", "528",
-            #"--max_workers", "10",
-            #"--num_threads", "10"
+            "--max_workers", "10",
+            "--num_threads", "10"
           ]
           ports:
             - containerPort: 50051

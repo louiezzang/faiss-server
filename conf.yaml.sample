@@ -1,3 +1,4 @@
+# For importing index files in Azure blobs
 azure_blobs:
   storage.account: YOUR_ACCOUNT
   account.key: YOUR_ACCOUNT_KEY
