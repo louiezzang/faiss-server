@@ -174,6 +174,11 @@ class FaissServer(pb2_grpc.ServerServicer):
         self._index.restore(request.save_path)
         return pb2.SimpleResponse(message="Restored, %s!" % request.save_path)
 
+    def Reset(self, request, context):
+        logging.debug("reset")
+        self._index.reset()
+        return pb2.SimpleResponse(message="Reset!")
+
     def Import(self, request, context):
         logging.info("importing - %s, %s, %s", request.embs_path, request.ids_path, request.keys_path)
         _, embs_path = self.down_if_remote_path(request.embs_path)

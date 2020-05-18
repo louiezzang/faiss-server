@@ -44,6 +44,11 @@ class ServerStub(object):
         request_serializer=faiss__pb2.RestoreRequest.SerializeToString,
         response_deserializer=faiss__pb2.SimpleResponse.FromString,
         )
+    self.Reset = channel.unary_unary(
+        '/faiss_index.Server/Reset',
+        request_serializer=faiss__pb2.EmptyRequest.SerializeToString,
+        response_deserializer=faiss__pb2.SimpleResponse.FromString,
+        )
     self.Import = channel.unary_unary(
         '/faiss_index.Server/Import',
         request_serializer=faiss__pb2.ImportRequest.SerializeToString,
@@ -102,6 +107,13 @@ class ServerServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def Reset(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
   def Import(self, request, context):
     # missing associated documentation comment in .proto file
     pass
@@ -147,6 +159,11 @@ def add_ServerServicer_to_server(servicer, server):
       'Restore': grpc.unary_unary_rpc_method_handler(
           servicer.Restore,
           request_deserializer=faiss__pb2.RestoreRequest.FromString,
+          response_serializer=faiss__pb2.SimpleResponse.SerializeToString,
+      ),
+      'Reset': grpc.unary_unary_rpc_method_handler(
+          servicer.Reset,
+          request_deserializer=faiss__pb2.EmptyRequest.FromString,
           response_serializer=faiss__pb2.SimpleResponse.SerializeToString,
       ),
       'Import': grpc.unary_unary_rpc_method_handler(

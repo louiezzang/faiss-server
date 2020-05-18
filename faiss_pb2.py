@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='faiss_index',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0b\x66\x61iss.proto\x12\x0b\x66\x61iss_index\"8\n\nAddRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x11\n\tembedding\x18\x02 \x03(\x02\x12\x0b\n\x03key\x18\x03 \x01(\t\"\x17\n\tIdRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"7\n\rSearchRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\x12\x0b\n\x03key\x18\x03 \x01(\t\"<\n\x18SearchByEmbeddingRequest\x12\x11\n\tembedding\x18\x01 \x03(\x02\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\".\n\x13GetEmbeddingRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0b\n\x03key\x18\x02 \x01(\t\"#\n\x0eRestoreRequest\x12\x11\n\tsave_path\x18\x01 \x01(\t\"G\n\rImportRequest\x12\x11\n\tembs_path\x18\x01 \x01(\t\x12\x10\n\x08ids_path\x18\x02 \x01(\t\x12\x11\n\tkeys_path\x18\x03 \x01(\t\"\x0e\n\x0c\x45mptyRequest\"!\n\x0eSimpleResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\";\n\x0eSearchResponse\x12\x0b\n\x03ids\x18\x01 \x03(\x03\x12\x0e\n\x06scores\x18\x02 \x03(\x02\x12\x0c\n\x04keys\x18\x03 \x03(\t\"&\n\x11\x45mbeddingResponse\x12\x11\n\tembedding\x18\x01 \x03(\x02\"\x1e\n\rTotalResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x32\xca\x04\n\x06Server\x12=\n\x03\x41\x64\x64\x12\x17.faiss_index.AddRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12?\n\x06Remove\x12\x16.faiss_index.IdRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12\x43\n\x06Search\x12\x1a.faiss_index.SearchRequest\x1a\x1b.faiss_index.SearchResponse\"\x00\x12Y\n\x11SearchByEmbedding\x12%.faiss_index.SearchByEmbeddingRequest\x1a\x1b.faiss_index.SearchResponse\"\x00\x12R\n\x0cGetEmbedding\x12 .faiss_index.GetEmbeddingRequest\x1a\x1e.faiss_index.EmbeddingResponse\"\x00\x12\x45\n\x07Restore\x12\x1b.faiss_index.RestoreRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12\x43\n\x06Import\x12\x1a.faiss_index.ImportRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12@\n\x05Total\x12\x19.faiss_index.EmptyRequest\x1a\x1a.faiss_index.TotalResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0b\x66\x61iss.proto\x12\x0b\x66\x61iss_index\"8\n\nAddRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x11\n\tembedding\x18\x02 \x03(\x02\x12\x0b\n\x03key\x18\x03 \x01(\t\"\x17\n\tIdRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"7\n\rSearchRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\x12\x0b\n\x03key\x18\x03 \x01(\t\"<\n\x18SearchByEmbeddingRequest\x12\x11\n\tembedding\x18\x01 \x03(\x02\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\".\n\x13GetEmbeddingRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0b\n\x03key\x18\x02 \x01(\t\"#\n\x0eRestoreRequest\x12\x11\n\tsave_path\x18\x01 \x01(\t\"G\n\rImportRequest\x12\x11\n\tembs_path\x18\x01 \x01(\t\x12\x10\n\x08ids_path\x18\x02 \x01(\t\x12\x11\n\tkeys_path\x18\x03 \x01(\t\"\x0e\n\x0c\x45mptyRequest\"!\n\x0eSimpleResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\";\n\x0eSearchResponse\x12\x0b\n\x03ids\x18\x01 \x03(\x03\x12\x0e\n\x06scores\x18\x02 \x03(\x02\x12\x0c\n\x04keys\x18\x03 \x03(\t\"&\n\x11\x45mbeddingResponse\x12\x11\n\tembedding\x18\x01 \x03(\x02\"\x1e\n\rTotalResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x32\x8d\x05\n\x06Server\x12=\n\x03\x41\x64\x64\x12\x17.faiss_index.AddRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12?\n\x06Remove\x12\x16.faiss_index.IdRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12\x43\n\x06Search\x12\x1a.faiss_index.SearchRequest\x1a\x1b.faiss_index.SearchResponse\"\x00\x12Y\n\x11SearchByEmbedding\x12%.faiss_index.SearchByEmbeddingRequest\x1a\x1b.faiss_index.SearchResponse\"\x00\x12R\n\x0cGetEmbedding\x12 .faiss_index.GetEmbeddingRequest\x1a\x1e.faiss_index.EmbeddingResponse\"\x00\x12\x45\n\x07Restore\x12\x1b.faiss_index.RestoreRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12\x41\n\x05Reset\x12\x19.faiss_index.EmptyRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12\x43\n\x06Import\x12\x1a.faiss_index.ImportRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12@\n\x05Total\x12\x19.faiss_index.EmptyRequest\x1a\x1a.faiss_index.TotalResponse\"\x00\x62\x06proto3')
 )
 
 
@@ -566,7 +566,7 @@ _SERVER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   serialized_start=573,
-  serialized_end=1159,
+  serialized_end=1226,
   methods=[
   _descriptor.MethodDescriptor(
     name='Add',
@@ -623,9 +623,18 @@ _SERVER = _descriptor.ServiceDescriptor(
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
+    name='Reset',
+    full_name='faiss_index.Server.Reset',
+    index=6,
+    containing_service=None,
+    input_type=_EMPTYREQUEST,
+    output_type=_SIMPLERESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
     name='Import',
     full_name='faiss_index.Server.Import',
-    index=6,
+    index=7,
     containing_service=None,
     input_type=_IMPORTREQUEST,
     output_type=_SIMPLERESPONSE,
@@ -634,7 +643,7 @@ _SERVER = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='Total',
     full_name='faiss_index.Server.Total',
-    index=7,
+    index=8,
     containing_service=None,
     input_type=_EMPTYREQUEST,
     output_type=_TOTALRESPONSE,

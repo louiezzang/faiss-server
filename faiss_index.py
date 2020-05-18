@@ -126,6 +126,13 @@ class FaissIndex:
         if pre_index:
             pre_index.reset()
 
+    def reset(self):
+        """
+        Resets the index.
+        :return:
+        """
+        self._index.reset()
+
     def save(self, filepath):
         """
         Saves the index into the file .

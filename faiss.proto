@@ -10,6 +10,7 @@ service Server {
     rpc SearchByEmbedding (SearchByEmbeddingRequest) returns (SearchResponse) {}
     rpc GetEmbedding (GetEmbeddingRequest) returns (EmbeddingResponse) {}
     rpc Restore (RestoreRequest) returns (SimpleResponse) {}
+    rpc Reset (EmptyRequest) returns (SimpleResponse) {}
     rpc Import (ImportRequest) returns (SimpleResponse) {}
     rpc Total (EmptyRequest) returns (TotalResponse) {}
 }
