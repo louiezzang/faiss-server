@@ -37,11 +37,12 @@ $ ./build.sh nextmining/faiss-server:latest
 
 ## Run the faiss server
 ```
-$ ./run.sh [YOUR_DOCKER_IMAGE_NAME or YOUR_DOCKER_IMAGE_NAME:VERSION] [YOUR_DOCKER_CONTAINER_NAME] [VECTOR_DIMENSION_SIZE] [MAX_WORKERS] [NUM_THREADS]
+$ ./run.sh [YOUR_DOCKER_IMAGE_NAME or YOUR_DOCKER_IMAGE_NAME:VERSION] [YOUR_DOCKER_CONTAINER_NAME] [VECTOR_DIMENSION_SIZE] [MAX_WORKERS] [NUM_THREADS] [PO
+RT]
 ```
 eg. 
 ```
-$ ./run.sh nextmining/faiss-server:latest faiss-server 200 5 10
+$ ./run.sh nextmining/faiss-server:latest faiss-server 200 5 10 5051
 ```
 
 ## Stop the faiss server
