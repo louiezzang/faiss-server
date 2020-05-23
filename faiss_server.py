@@ -177,6 +177,8 @@ class FaissServer(pb2_grpc.ServerServicer):
     def Reset(self, request, context):
         logging.debug("reset")
         self._index.reset()
+        self._keys = None
+        self._key_index = None
         return pb2.SimpleResponse(message="Reset!")
 
     def Import(self, request, context):
