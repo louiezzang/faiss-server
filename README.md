@@ -42,7 +42,7 @@ RT]
 ```
 eg. 
 ```
-$ ./run.sh nextmining/faiss-server:latest faiss-server 200 5 10 5051
+$ ./run.sh nextmining/faiss-server:latest faiss-server 200 5 10 50051
 ```
 
 ## Stop the faiss server
