@@ -1,4 +1,4 @@
-FROM daangn/faiss
+FROM daangn/faiss:1.6.3
 
 ENV GRPC_PYTHON_VERSION 1.15.0
 RUN python -m pip install --upgrade pip
@@ -7,7 +7,8 @@ RUN pip install grpcio==${GRPC_PYTHON_VERSION} grpcio-tools==${GRPC_PYTHON_VERSI
 RUN pip install pandas
 RUN pip install pyyaml
 RUN pip install click
-RUN pip install gevent==1.3.5
+#RUN pip install gevent==1.3.5
+RUN pip install gevent
 RUN pip install boto3
 RUN pip install azure-storage-blob==2.1.0   # Latest version has a major change, some of class names are changed
 
