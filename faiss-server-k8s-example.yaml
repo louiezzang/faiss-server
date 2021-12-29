@@ -1,8 +1,9 @@
+# For deploying to Kubernetes
 apiVersion: v1
 kind: Service
 metadata:
   name: faiss-server
-  namespace: production
+  namespace: YOUR_K8S_NAMESPACE (eg. development or production)
   labels:
     app: faiss-server
 spec:
@@ -26,7 +27,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: faiss-server
-  namespace: production
+  namespace: YOUR_K8S_NAMESPACE (eg. development or production)
   labels:
     app: faiss-server
 spec:
