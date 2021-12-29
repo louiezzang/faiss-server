@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: faiss-server
+  namespace: production
+  labels:
+    app: faiss-server
+spec:
+  type: NodePort
+  ports:
+    - name: grpc-faiss-server
+      port: 50051
+      targetPort: 50051
+      protocol: TCP
+  selector:
+    app: faiss-server
+---
+# https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
+apiVersion: apps/v1
+# Note that we use `StatefulSet` to access the specific faiss-server POD instead of random.
+# For example, you can access the specific faiss-server among 2 replicas as the below:
+# HOST1: faiss-server-0.faiss-server.production
+# PORT1: 50051
+# HOST2: faiss-server-1.faiss-server.production
+# PORT2: 50051
+kind: StatefulSet
+metadata:
+  name: faiss-server
+  namespace: production
+  labels:
+    app: faiss-server
+spec:
+  serviceName: faiss-server
+  replicas: 2
+  selector:
+    matchLabels:
+      app: faiss-server
+  template:
+    metadata:
+      labels:
+        app: faiss-server
+    spec:
+      containers:
+        - name: faiss-server
+          image: YOUR_DOCKER_CONTAINER_REGISTRY/faiss-server:YOUR_VERSION
+          imagePullPolicy: Always
+          command: ["python", "server.py"]
+          args: [
+            "--dim", "528",
+            "--max_workers", "10",
+            "--num_threads", "10"
+          ]
+          ports:
+            - containerPort: 50051
+      imagePullSecrets:
+        # Your docker container registry auth
+        - name: acr-auth
